@@ -1,39 +1,48 @@
 export const modals = () => {
     function bindModal(trigger, modal, close) {
-        trigger.addEventListener('click', evt => {
-            if(evt.target) {
-                evt.preventDefault()
-            }
-            showModal(modal)
+        const btnSelector = document.querySelectorAll(trigger),
+            modalSelector = document.querySelector(modal),
+            closeSelector = document.querySelector(close)
+
+        btnSelector.forEach(item => {
+            item.addEventListener('click', evt => {
+                showModal(modalSelector)
+            })
         })
 
-        close.addEventListener('click', () => {
-            closeModal(modal)
+        closeSelector.addEventListener('click', () => {
+            closeModal(modalSelector)
         })
 
-        modal.addEventListener('click', evt => {
-            if(evt.target === modal) {
-                closeModal(modal)
+        modalSelector.addEventListener('click', evt => {
+            if(evt.target === modalSelector) {
+                closeModal(modalSelector)
             }
-    })
+        })
+
+
+        function showModal(target) {
+            target.style.display = 'block'
+            document.body.classList.add('modal-open')
+        }
+
+        function closeModal(target) {
+            target.style.display = 'none'
+            document.body.classList.remove('modal-open')
+        }
     }
 
-    const engineerBtn = document.querySelector('.popup_engineer_btn'),
-          engineerModal = document.querySelector('.popup_engineer'),
-          engineerModalClose = document.querySelector('.popup_engineer .popup_close')
-    
 
-    function showModal(target) {
-        target.style.display = 'block'
-        document.body.style.overflow = 'hidden'
+    bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close')
+    bindModal('.phone_link', '.popup', '.popup .popup_close')
+
+
+    function timeModal(selector, timer) {
+        setTimeout(() => {
+            document.querySelector(selector).style.display = 'block'
+        }, timer)
     }
 
-    function closeModal(target) {
-        target.style.display = 'none'
-        document.body.style.overflow = ''
-    }
-
-   bindModal(engineerBtn, engineerModal, engineerModalClose)
-
+    timeModal('.popup', 3000)
 }
 
