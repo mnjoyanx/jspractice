@@ -43,6 +43,6 @@ export const modals = () => {
         }, timer)
     }
 
-    timeModal('.popup', 3000)
+    // timeModal('.popup', 3000)
 }
 
